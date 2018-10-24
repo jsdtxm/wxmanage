@@ -1,0 +1,74 @@
+{% extends "mainapp/base.html" %}
+{% load staticfiles %}
+{% block title %}注册{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/login_style.css' %}">
+
+<div class="top-content">
+
+  <div class="inner-bg">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6 col-sm-offset-3 form-box">
+          <div class="form-top">
+            <div class="form-top-left">
+              <h3>注册新用户</h3>
+            </div>
+            <div class="form-top-right">
+              <i class="fa fa-user-plus"></i>
+            </div>
+          </div>
+          {% if state == 'success' %}
+              <div class="well">
+                  <h2 class="text-success text-center">注册成功！</h2>
+              </div>
+          {% elif state == 'repeat_error' %}
+              <div class="well">
+                  <h2 class="text-warning text-center">密码重复错误</h2>
+              </div>
+          {% elif state == 'empty' %}
+              <div class="well">
+                  <h2 class="text-warning text-center">密码不能为空</h2>
+              </div>
+          {% elif state == 'user_exist' %}
+              <div class="well">
+                  <h2 class="text-danger text-center">用户已经存在</h2>
+              </div>
+          {% endif %}
+          <div class="form-bottom">
+            <form role="form" action="" method="post" class="login-form">
+              {% csrf_token %}
+              <div class="form-group">
+                <label class="sr-only" for="id_user_name">用户名</label>
+                <input type="text" id="id_user_name" required name="username" placeholder="用户名..." class="form-username form-control">
+                <span class="help-block">&nbsp;&nbsp;用于登陆，可以包括大小写字母和下划线。</span>
+              </div>
+              <div class="form-group">
+                <label class="sr-only" for="id_name">昵称</label>
+                <input type="text" id="id_name" required name="nickname" placeholder="昵称..." class="form-username form-control">
+              </div>
+              <div class="form-group">
+                <label class="sr-only" for="id_password">密码</label>
+                <input type="password" id="id_password" required name="password" placeholder="密码..." class="form-password form-control">
+              </div>
+              <div class="form-group">
+                <label class="sr-only" for="id_password">重复密码</label>
+                <input type="password" id="id_password" required name="repeat_password" placeholder="重复密码..." class="form-password form-control">
+              </div>
+              <div class="form-group">
+                <label class="sr-only" for="id_email">电子邮件</label>
+                <input type="text" id="id_email" required name="email" placeholder="电子邮件..." class="form-username form-control">
+              </div>
+              <button id="id_submit" type="submit" class="btn">注册</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

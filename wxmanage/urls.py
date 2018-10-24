@@ -16,8 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls import url
 from django.urls import path,include
+from django.contrib.staticfiles import views
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'', include('mainapp.urls'))
+    url(r'', include('mainapp.urls')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += [
+        url(r'^static/(?P<path>.*)$', views.static.serve, {'document_root': settings.STATIC_ROOT}, name="static"),
+        url(r'^media/(?P<path>.*)$', views.static.serve, {'document_root': settings.MEDIA_ROOT}, name="media")
+    ]

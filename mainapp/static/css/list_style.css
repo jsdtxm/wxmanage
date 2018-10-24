@@ -1,0 +1,90 @@
+ /* =============================================================
+  BLOG POST STYLE
+ ============================================================ */
+.blog-post {
+    padding-bottom:30px;
+    border-bottom:2px solid #f4f4f4;
+    padding-top:30px;
+}
+.blog-post a, .blog-post a:hover {
+        text-decoration:none;
+}
+.blog-post h1 {
+    font-size:30px;
+    line-height:50px;
+}
+.blog-post h2 {
+    font-size:22px;
+    line-height:45px;
+    font-weight: 622;
+}
+.blog-post h4 {
+    font-size:18px;
+    line-height:30px;
+}
+.blog-post h5 {
+    font-size:15px;
+    line-height:20px;
+}
+.blog-post p {
+     font-size:12px;
+    line-height:30px;
+    padding-bottom:20px;
+    padding-top:10px;
+}
+
+/* =============================================================
+ BLOG SEARCH STYLE
+============================================================ */
+.header-search {
+    /* float: left; */
+    /* width: 55%; */
+    text-align: center;
+    /* margin: 1.6em 5em; */
+}
+.header-search form {
+    position: relative;
+}
+.header-search input[type="search"] {
+    width: 100%;
+    padding: 1em 5em 1em 1em;
+    font-size: 1em;
+    color: #999;
+    outline: none;
+    border: 1px solid #cccccc;
+    background: none;
+    -webkit-appearance: none;
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    border-radius:4px;
+}
+.header-search input[type="search"]:focus {
+    border-color: #239fdb;
+}
+.header-search .btn-default {
+    border: none;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 60px;
+    height: 100%;
+    outline: none;
+    box-shadow: none;
+    background: #239fdb;
+    padding: 0;
+    border-radius: inherit;
+    -webkit-appearance: none;
+    -webkit-transition: .5s all;
+    -moz-transition: .5s all;
+    transition: .5s all;
+    border-radius:4px;
+}
+.header-search i.fa {
+    font-size: 1em;
+    color: #fff;
+    padding: 3px;
+}
+.list-group strong{
+  font-weight: 555;
+}

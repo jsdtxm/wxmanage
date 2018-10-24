@@ -1,0 +1,43 @@
+.logo-container{
+    left: 50px;
+    position: absolute;
+    top: 20px;
+     z-index: 3;
+}
+.logo-container .logo{
+    overflow: hidden;
+    border-radius: 50%;
+    border: 1px solid #333333;
+    width: 60px;
+    float: left;
+}
+.logo-container .brand{
+    font-size: 18px;
+    color: #FFFFFF;
+    line-height: 20px;
+    float: left;
+    margin-left: 10px;
+    margin-top: 10px;
+    width: 60px
+}
+.fa-big {
+	/* float: left;
+	width: 25%;
+	padding-top: 5px; */
+	font-size: 66px;
+	/* color: #ddd; */
+	line-height: 95px;
+	text-align: right;
+}
+.fa-mid {
+	/* float: left;
+	width: 25%;
+	padding-top: 5px; */
+	font-size: 35px;
+	color: #37515d;
+	/* line-height: 95px;
+	text-align: right; */
+}
+.col-long{
+  width: 100%;
+}

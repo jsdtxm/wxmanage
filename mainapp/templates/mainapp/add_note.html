@@ -1,0 +1,65 @@
+{% extends "mainapp/base.html" %}
+{% load staticfiles %}
+{% block title %}添加图书{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/login_style.css' %}">
+
+<div class="top-content">
+  <div class="inner-bg">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6 col-sm-offset-3 form-box">
+          <div class="form-top">
+            <div class="form-top-left">
+              <h3>请选择添加文献的方式</h3>
+            </div>
+            <div class="form-top-right">
+              <i class="fa fa-gavel"></i>
+            </div>
+          </div>
+          <div class="form-bottom">
+            <form role="form" action="" method="post" class="login-form">
+              <!-- class="testimonials-news" -->
+              <div >
+                <div class="news .news-bg partners form-inside">
+                  <div class="wrap">
+                    <div class="row">
+                      <a href="{% url 'add_note_auto' %}">
+                        <div class="col-lg-3 news-grid news-grid-middle">
+                          <div class="form-top-middle">
+                          <i class="fa fa-rocket"></i>
+                        </div>
+                          <!-- <img src="{% static 'images/clints-img-1.png' %}" alt="" /> -->
+                          <div class="news-desc">
+                            <h2>自动添加</h2>
+                          </div>
+                        </div>
+                      </a>
+                      <a href="{% url 'add_note_manual' %}">
+                        <div class="col-lg-3 news-grid news-grid-middle news-grid-right">
+                          <div class="form-top-middle">
+                          <i class="fa fa-plane"></i>
+                        </div>
+                          <!-- <img src="{% static 'images/clints-img-3.png' %}" alt="" /> -->
+                          <div class="news-desc">
+                            <h2>手动添加</h2>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <br/>
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

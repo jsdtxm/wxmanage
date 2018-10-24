@@ -1,0 +1,109 @@
+{% extends "mainapp/base.html" %}
+{% load staticfiles %}
+{% block title %}首页 | XM小组文献管理系统{% endblock %}
+{% block content %}
+
+<!-- Start Header-banner -->
+<div class="header-banner">
+
+  <!-- Carousel ================================================== -->
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <div class="wrap">
+      <div class="carousel-inner">
+        <div class="item active">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="banner-desc">
+                <h1>简单 · 稳定 · 智能</h1>
+                <ul>
+                  <li><span><i class="fa fa-chevron-right"></i>基于 Django 2.0 框架开发</span></li>
+                  <li><span><i class="fa fa-chevron-right"></i>Bootstrap 响应式布局，多种分辨率适配</span></li>
+                  <li><span><i class="fa fa-chevron-right"></i>支持多种文档格式，文献资料随身携带</span></li>
+                  <li><span><i class="fa fa-chevron-right"></i>小组共享、关键词查询，开启管理文献新时代</span></li>
+                </ul>
+                <div class="see-features"><a href="#">查看特性</a></div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="banner-img">
+                <img src="{% static 'images/devices.png' %}" alt="First slide" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="banner-img">
+                <img src="{% static 'images/devices2.png' %}" alt="Second slide" />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="banner-desc">
+                <h1>简单 · 稳定 · 智能</h1>
+                <ul>
+                  <li><span><i class="fa fa-chevron-right"></i>基于 Django 2.0 框架开发</span></li>
+                  <li><span><i class="fa fa-chevron-right"></i>Bootstrap 响应式布局，多种分辨率适配</span></li>
+                  <li><span><i class="fa fa-chevron-right"></i>支持多种文档格式，文献资料随身携带</span></li>
+                  <li><span><i class="fa fa-chevron-right"></i>小组共享、关键词查询，开启管理文献新时代</span></li>
+                </ul>
+                <div class="see-features"><a href="#">查看特性</a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a class="left carousel-control left-arrow" href="#myCarousel" data-slide="prev"><span><i class="fa fa-chevron-left"></i></span></a>
+    <a class="right carousel-control right-arrow" href="#myCarousel" data-slide="next"><span><i class="fa fa-chevron-right"></i></span></a>
+  </div>
+  <!-- /.carousel -->
+</div>
+<!-- End Header-banner -->
+
+<span class="big-arrow"></span>
+
+<!-- Start Main Content -->
+<div class="main">
+  <div class="wrap">
+    <div class="features">
+      <div class="row">
+        <div class="col-lg-4">
+          <img src="{% static 'images/private-cloud.png' %}" alt="" />
+          <h2>加密存储</h2>
+          <p>SHA256 高强度云端加密存储，保护您的数据安全。</p>
+          <p><a class="read-more" href="#">了解详情</a></p>
+        </div>
+        <div class="col-lg-4">
+          <img src="{% static 'images/dedicated-servers.png' %}" alt="" />
+          <h2>多重方案</h2>
+          <p>可选私有云、专有云、混合云方案或编辑器SDK部署。</p>
+          <p><a class="read-more" href="#">了解详情</a></p>
+        </div>
+        <div class="col-lg-4">
+          <img src="{% static 'images/hybrid-cloud.png' %}" alt="" />
+          <h2>混合云端</h2>
+          <p>融合了私有云的安全特性以及用公有云的计算资源。</p>
+          <p><a class="read-more" href="#">了解详情</a></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="support">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-10">
+            <h2>7x24小时 佛系技术支持</h2>
+            <p>专属技术支持人员，全天不定时在线。如遇系统错误请重启，或重启，以及重启。</p>
+          </div>
+          <div class="col-lg-2">
+            <p><a class="read-more" href="http://wpa.qq.com/msgrd?v=3&uin=1457344679&site=qq&menu=yes">在线咨询</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Main Content -->
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends "mainapp/base.html" %}
+{% load staticfiles %}
+{% block title %}登陆{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/login_style.css' %}">
+
+<div class="top-content">
+
+  <div class="inner-bg">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6 col-sm-offset-3 form-box">
+          <div class="form-top">
+            <div class="form-top-left">
+              <h3>登陆到 XM文献管理系统</h3>
+            </div>
+            <div class="form-top-right">
+              <i class="fa fa-sign-in"></i>
+            </div>
+          </div>
+          {% if state == 'not_exist_or_password_error' %}
+          <div class="well">
+            <h2 class="text-danger text-center">用户不存在或密码错误</h2>
+          </div>
+          {% endif %}
+          <div class="form-bottom">
+            <form role="form" action="" method="post" class="login-form">
+              {% csrf_token %}
+              <div class="form-group">
+                <label class="sr-only" for="id_user_name">用户名</label>
+                <input type="text" id="id_user_name" required name="username" placeholder="用户名..." class="form-username form-control">
+              </div>
+              <div class="form-group">
+                <label class="sr-only" for="id_password">密码</label>
+                <input type="password" id="id_password" required name="password" placeholder="密码..." class="form-password form-control">
+              </div>
+              <button type="submit" class="btn">登陆</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+{% endblock %}

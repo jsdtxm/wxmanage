@@ -1,0 +1,114 @@
+{% extends "management/base.html" %}
+{% load staticfiles %}
+{% block title %}查看图书{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/list_style.css' %}">
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 ">
+      {% for note in note_list %}
+      <div class="blog-post">
+        <h2>{{ note.title }}</h2>
+        <h4>作者：
+          {% for author in note.authors.all %}
+          <a href="#">{{ author.name }}</a>
+          {% endfor %}
+        </h4>
+        <!-- 摘要 -->
+        <p>{{ note.abstract }}</p>
+        <h5>关键词：
+        {% for keyword in note.keywords.all %}
+        <a href="#">{{ keyword.name }}</a>
+        {% endfor %}
+        </h5>
+        <a href="{% url 'detail' %}?id={{ note.id }}" class="read-more ">查看详情 <i class="fa fa-angle-right"></i></a>
+      </div>
+      {% empty %}
+      <div class="blog-post">
+        <h2>暂无文献</h2>
+      </div>
+      {% endfor %}
+      <br>
+      <nav>
+        <ul class="pagination">
+          {% if note_list.has_previous %}
+          <li>
+            <a href="?typ={{ query_category }}&page={{ note_list.previous_page_number }}" aria-label="Previous">
+              <span aria-hidden="true">«</span>
+            </a>
+          </li>
+          {% else %}
+          <li>
+            <a href="#" class="disabled" aria-label="Previous">
+              <span aria-hidden="true">«</span>
+            </a>
+          </li>
+          {% endif %}
+          <li><a href="#">第 {{ note_list.number }} / {{ note_list.paginator.num_pages }}页</a></li>
+          {% if note_list.has_next %}
+          <li>
+            <a href="?typ={{ query_category }}&page={{ note_list.next_page_number }}" aria-label="Previous">
+              <span aria-hidden="true">»</span>
+            </a>
+          </li>
+          {% else %}
+          <li>
+            <a href="#" class="disabled" aria-label="Previous">
+              <span aria-hidden="true">»</span>
+            </a>
+          </li>
+          {% endif %}
+        </ul>
+      </nav>
+    </div>
+    <div class="col-md-1"></div>
+    <div class="col-md-3" style="padding-top: 30px;">
+      <div class="row">
+
+        <div class="header-search">
+					<form role="form" method="post" name="search_form">
+            {% csrf_token %}
+						<input type="search" name="keyword" placeholder="文档检索" id="id_search_input" onkeyup="key_up()" autofocus>
+						<button type="submit" class="btn btn-default" aria-label="Left Align">
+							<i class="fa fa-search" aria-hidden="true"> </i>
+						</button>
+					</form>
+				</div>
+
+        <script type="text/javascript">
+          function key_up() {
+            var old_value = $('#id_search_input').val();
+            setTimeout(function() {
+              var new_value = $('#id_search_input').val();
+              if (old_value == new_value) {
+                document.search_form.submit();
+              }
+            }, 1500);
+          }
+        </script>
+        <br/>
+        <ul class="list-group">
+          <li class="list-group-item"><strong>文献出处</strong></li>
+          <li class="list-group-item"><a href="{% url 'view_note_list' %}?source_type=all" id="id_category_all">全部</a></li>
+          {% for category in category_list %}
+          <li class="list-group-item">
+            <a href="{% url 'view_note_list' %}?source_type={{ category }}" id="id_category_{{ category }}">
+            {{ category }}</a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="row">
+      </div>
+    </div>
+
+  </div>
+
+
+</div>
+
+
+{% endblock %}

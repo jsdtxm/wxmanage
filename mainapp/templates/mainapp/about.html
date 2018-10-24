@@ -1,0 +1,57 @@
+{% extends "mainapp/base.html" %}
+{% load staticfiles %}
+{% block title %}关于 | XM文献管理系统{% endblock %}
+
+{% block content %}
+
+<!-- Start Main Content -->
+<div class="main">
+  <div class="news">
+  <div class="wrap">
+    <!-- <div class="col-lg-12"> -->
+      <div class="about-desc">
+        <h2>关于我们</h2>
+        <p>开发太累，不想说话</p>
+        <p>项目代码遵循<a href="http://opensource.org/licenses/mit-license.html">MIT协议</a></p>
+      </div>
+    <!-- </div> -->
+  </div>
+  </div>
+    <div class="news partners">
+      <div class="wrap">
+        <h2>团队成员</h2>
+        <div class="row">
+          <div class="col-lg-3 news-grid">
+            <br/>
+            <img src="{% static 'images/clints-img-1.png' %}" alt="" />
+            <div class="news-desc">
+              <h2>邵 加 楠</h2>
+              <p class="title">架构师</p>
+              <p>设计系统整体架构，搭建系统实现的核心构架</p>
+            </div>
+          </div>
+          <div class="col-lg-3 news-grid news-grid-middle">
+            <br/>
+            <img src="{% static 'images/clints-img-2.png' %}" alt="" />
+            <div class="news-desc">
+              <h2>夏&nbsp;&nbsp;&nbsp;旻</h2>
+              <p class="title">主程序</p>
+              <p>系统模块的详细设计、编码，软件开发和维护</p>
+            </div>
+          </div>
+          <div class="col-lg-3 news-grid">
+            <br/>
+            <img src="{% static 'images/clints-img-3.png' %}" alt="" />
+            <div class="news-desc">
+              <h2>陶 奕 阳</h2>
+              <p class="title">美&nbsp;&nbsp;工</p>
+              <p>系统的用户界面设计与交互设计</p>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+<!-- End Main Content -->
+
+{% endblock %}

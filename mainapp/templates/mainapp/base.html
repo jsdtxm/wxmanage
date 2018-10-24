@@ -1,0 +1,167 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>{% block title %}{% endblock %}</title>
+
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800,600,300' rel='stylesheet' type='text/css'>
+  <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css" media="all" />
+  <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" media="all" />
+  <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet" type="text/css" media="all" />
+  <link href="{% static 'css/carousel.css' %}" rel="stylesheet" type="text/css" media="all" />
+  <link href="{% static 'css/owl.carousel.css' %}" rel="stylesheet" type="text/css" media="all" />
+  <!-- 测试更换更高版本的jquery -->
+  <script src="{% static 'js/jquery-2.2.4.min.js' %}" type="text/javascript"></script>
+  <!-- <script src="{% static 'js/jquery-1.10.2.min.js' %}" type="text/javascript"></script> -->
+
+  <script src="{% static 'js/bootstrap.js' %}" type="text/javascript"></script>
+  <!-- <script src="{% static 'js/bootstrap.min.js' %}" type="text/javascript"></script> -->
+  <script src="{% static 'js/owl.carousel.js' %}" type="text/javascript"></script>
+
+  <script>
+    $(document).ready(function() {
+      var owl = $("#owl-demo");
+      owl.owlCarousel({
+        items: 4, //10 items above 1000px browser width
+        itemsDesktop: [1000, 4], //5 items between 1000px and 901px
+        itemsDesktopSmall: [900, 3], // 3 items betweem 900px and 601px
+        itemsTablet: [600, 2], //2 items between 600 and 0;
+        itemsMobile: false // itemsMobile disabled - inherit from itemsTablet option
+      });
+      // Custom Navigation Events
+      $(".next").click(function() {
+        owl.trigger('owl.next');
+      })
+      $(".prev").click(function() {
+        owl.trigger('owl.prev');
+      })
+    });
+  </script>
+
+  <style type="text/css">
+    /* 动态为footer添加类fixed-bottom */
+
+    .fixed-bottom {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
+  <script type="text/javascript">
+    $(function() {
+      function footerPosition() {
+        $("footer").removeClass("fixed-bottom");
+        var contentHeight = document.body.scrollHeight, //网页正文全文高度
+          winHeight = window.innerHeight; //可视窗口高度，不包括浏览器顶部工具栏
+        if (!(contentHeight > winHeight)) {
+          //当网页正文高度小于可视窗口高度时，为footer添加类fixed-bottom
+          $("footer").addClass("fixed-bottom");
+        } else {
+          $("footer").removeClass("fixed-bottom");
+        }
+      }
+      footerPosition();
+      $(window).resize(footerPosition);
+    });
+  </script>
+
+</head>
+
+<body>
+  <!-- Start Header -->
+  <div class="header">
+    <div class="header-top">
+      <div class="wrap">
+        <div class="header-top-left">
+          <p>技术支持： +0123456789</p>
+        </div>
+        <div class="header-top-right">
+          <ul>
+            {% if user %}
+            <li><a href "#"><span>
+              <i class="fa fa-user"></i> 欢迎，&nbsp;<span id="base_name">{{ user.myuser.nickname }}</span>
+            </span></a></li>
+            {% if user.is_superuser %}
+            <li><a href="/admin"><i class="fa fa-cogs"></i> 管理后台</a></li>
+            {% endif %}
+            <li><a href="{% url 'set_password' %}"><i class="fa fa-key"></i> 修改密码</a></li>
+            <li><a href="{% url 'logout' %}"><i class="fa fa-sign-out"></i> 注销</a></li>
+            {% else %}
+            <li><a href="{% url 'login' %}"><span><i class="fa fa-sign-in"></i> 登陆</span></a></li>
+            <li><a href="{% url 'signup' %}"><i class="fa fa-user-plus"></i> 注册</a></li>
+            {% endif %}
+          </ul>
+        </div>
+        <div class="clear"></div>
+      </div>
+    </div>
+    <div class="header-logo-nav">
+      <div class="navbar navbar-inverse navbar-static-top nav-bg" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                   <span class="sr-only">Toggle navigation</span>
+                   <span class="icon-bar"></span>
+                   <span class="icon-bar"></span>
+                   <span class="icon-bar"></span>
+                 </button>
+            <div class="logo"> <a class="navbar-brand" href="{% url 'homepage' %}"><img src="{% static 'images/logo.png' %}" alt="" /></a></div>
+            <div class="clear"></div>
+          </div>
+          <div class="collapse navbar-collapse">
+            <ul class=" menu nav navbar-nav">
+              <li id="homepage"><a href="{% url 'homepage' %}">首页</a></li>
+              {% if user %}
+              <li id="view_note"><a href="{% url 'view_note_list' %}">查看文献</a></li>
+              {% endif %} {% if user.myuser.permission > 1 or request.user.is_superuser %}
+              <li id="add_note"><a href="{% url 'add_note' %}">添加文献</a></li>
+              {% endif %}
+              <li id="about"><a href="{% url 'about' %}">关于</a></li>
+            </ul>
+          </div>
+          <!--/.nav-collapse -->
+        </div>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+  <!-- End Header -->
+
+  <!-- main part -->
+  {% block content %}{% endblock %}
+  <!-- /.main -->
+
+  <!-- footer -->
+  <footer id='footer' class="footer-bottom" role="footerinfo">
+    <div class="wrap">
+      <div class="copy-right">
+        <p>XM文献管理系统 1.0.1
+          <span class="hide-xs"> · </span> 作者 <a href="https://github.com/jsdtxm">Xia Min</a>
+        </p>
+        <p>
+          本系统代码遵循 <a href="http://opensource.org/licenses/mit-license.html">MIT协议</a>
+        </p>
+        <p>
+          基于 <a href="https://www.djangoproject.com/"> Django</a>
+          <span class="hide-xs"> · </span>
+          <a href="https://getbootstrap.com/"> Bootstrap</a>
+          <span class="hide-xs"> · </span>
+          <a href="http://fontawesome.dashgame.com/"> Font Awesome</a> 框架进行开发
+        </p>
+      </div>
+      <div class="clear"></div>
+  </footer>
+  </div>
+  <!-- /.footer-->
+
+  <!-- 标签激活 -->
+  <script type="text/javascript">
+    $('#{{active_menu}}').addClass("active");
+  </script>
+</body>
+
+</html>
