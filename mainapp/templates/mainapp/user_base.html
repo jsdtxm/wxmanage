@@ -1,0 +1,48 @@
+{% extends "mainapp/base.html" %}
+{% load staticfiles %}
+{% block title %}用户中心{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}" />
+
+<div id="wrap">
+  <!-- 左侧菜单栏目块 -->
+  <div class="leftMeun" id="leftMeun">
+    <div class="meun-title">账号管理</div>
+    <div class="meun-item" onClick="javascript:window.open('{% url 'user_center' %}?otype=person','_self')">
+      <i class="fa fa-user-o" style="min-width: 1.5em;"></i>个人资料
+    </div>
+    <div class="meun-item" onClick="javascript:window.open('{% url 'user_center' %}?otype=account','_self')">
+      <i class="fa fa-cogs" style="min-width: 1.5em;"></i>账号信息
+    </div>
+    <div class="meun-item" onClick="javascript:window.open('{% url 'user_center' %}?otype=passwd','_self')">
+      <i class="fa fa-key" style="min-width: 1.5em;"></i>修改密码
+    </div>
+    <div class="meun-title">群组管理</div>
+    <div class="meun-item" onClick="javascript:window.open('{% url 'user_center' %}?otype=newteam','_self')">
+      <i class="fa fa-plus" style="min-width: 1.5em;"></i>建立群组
+    </div>
+    <div class="meun-item" onClick="javascript:window.open('{% url 'user_center' %}?otype=team','_self')">
+      <i class="fa fa-group" style="min-width: 1.5em;"></i>我的群组
+    </div>
+    {% for team in team_list %}
+    <div class="meun-item" id="team_{{ team.id }}" onClick="javascript:window.open('{% url 'team' %}?id={{ team.id }}','_self')">
+      <i class="fa fa-group" style="min-width: 1.5em;"></i>{{ team.name }}
+    </div>
+    {% endfor %}
+  </div>
+
+  <div id="rightContent">
+    <!-- Tab panes -->
+    <div class="tab-content">
+      {% block content2 %}{% endblock %}
+    </div>
+  </div>
+
+</div>
+
+<script type="text/javascript">
+  $('#team_{{ team_id }}').addClass("meun-item-active");
+</script>
+{% endblock %}

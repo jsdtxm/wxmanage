@@ -1,114 +1,134 @@
-{% extends "management/base.html" %}
+{% extends "mainapp/base.html" %}
 {% load staticfiles %}
-{% block title %}查看图书{% endblock %}
+{% block title %}查看文献列表{% endblock %}
 
 {% block content %}
 
-<link rel="stylesheet" href="{% static 'css/list_style.css' %}">
-
-<div class="container">
-  <div class="row">
-    <div class="col-md-8 ">
-      {% for note in note_list %}
-      <div class="blog-post">
-        <h2>{{ note.title }}</h2>
-        <h4>作者：
-          {% for author in note.authors.all %}
-          <a href="#">{{ author.name }}</a>
-          {% endfor %}
-        </h4>
-        <!-- 摘要 -->
-        <p>{{ note.abstract }}</p>
-        <h5>关键词：
-        {% for keyword in note.keywords.all %}
-        <a href="#">{{ keyword.name }}</a>
-        {% endfor %}
-        </h5>
-        <a href="{% url 'detail' %}?id={{ note.id }}" class="read-more ">查看详情 <i class="fa fa-angle-right"></i></a>
+<link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}" />
+<script>
+function cf(note,team){
+  var flag = confirm("确定要删除吗？");
+  if(flag){
+    window.open('{% url 'delnote' %}?id=' + note + '&team=' + team,'_self');
+  }else{
+    //alert("你单击的是取消");	
+  }
+}
+</script>
+<div id="wrap">
+  <!-- 左侧菜单栏目块 -->
+  <div class="leftMeun" id="leftMeun">
+    <div class="meun-title">文献出处</div>
+      {% comment %} <div class="meun-item" id="team_all" onClick="javascript:window.open('{% url 'view_note_list' %}','_self')">
+          <i class="fa fa-cube" style="min-width: 1.5em;"></i>全部
+      </div> {% endcomment %}
+      <div class="meun-item" id="team_my" onClick="javascript:window.open('{% url 'view_note_list' %}?team=my','_self')">
+          <i class="fa fa-user" style="min-width: 1.5em;"></i>我的文献
       </div>
-      {% empty %}
-      <div class="blog-post">
-        <h2>暂无文献</h2>
-      </div>
-      {% endfor %}
-      <br>
-      <nav>
-        <ul class="pagination">
-          {% if note_list.has_previous %}
-          <li>
-            <a href="?typ={{ query_category }}&page={{ note_list.previous_page_number }}" aria-label="Previous">
-              <span aria-hidden="true">«</span>
-            </a>
-          </li>
-          {% else %}
-          <li>
-            <a href="#" class="disabled" aria-label="Previous">
-              <span aria-hidden="true">«</span>
-            </a>
-          </li>
-          {% endif %}
-          <li><a href="#">第 {{ note_list.number }} / {{ note_list.paginator.num_pages }}页</a></li>
-          {% if note_list.has_next %}
-          <li>
-            <a href="?typ={{ query_category }}&page={{ note_list.next_page_number }}" aria-label="Previous">
-              <span aria-hidden="true">»</span>
-            </a>
-          </li>
-          {% else %}
-          <li>
-            <a href="#" class="disabled" aria-label="Previous">
-              <span aria-hidden="true">»</span>
-            </a>
-          </li>
-          {% endif %}
-        </ul>
-      </nav>
-    </div>
-    <div class="col-md-1"></div>
-    <div class="col-md-3" style="padding-top: 30px;">
-      <div class="row">
-
-        <div class="header-search">
-					<form role="form" method="post" name="search_form">
-            {% csrf_token %}
-						<input type="search" name="keyword" placeholder="文档检索" id="id_search_input" onkeyup="key_up()" autofocus>
-						<button type="submit" class="btn btn-default" aria-label="Left Align">
-							<i class="fa fa-search" aria-hidden="true"> </i>
-						</button>
-					</form>
-				</div>
-
-        <script type="text/javascript">
-          function key_up() {
-            var old_value = $('#id_search_input').val();
-            setTimeout(function() {
-              var new_value = $('#id_search_input').val();
-              if (old_value == new_value) {
-                document.search_form.submit();
-              }
-            }, 1500);
-          }
-        </script>
-        <br/>
-        <ul class="list-group">
-          <li class="list-group-item"><strong>文献出处</strong></li>
-          <li class="list-group-item"><a href="{% url 'view_note_list' %}?source_type=all" id="id_category_all">全部</a></li>
-          {% for category in category_list %}
-          <li class="list-group-item">
-            <a href="{% url 'view_note_list' %}?source_type={{ category }}" id="id_category_{{ category }}">
-            {{ category }}</a>
-          </li>
-          {% endfor %}
-        </ul>
-      </div>
-      <div class="row">
-      </div>
-    </div>
-
+    {% for team in team_list %}
+        <div class="meun-item hidd_text" id="team_{{ team.id }}" style="padding-right: 10px;" onClick="javascript:window.open('{% url 'view_note_list' %}?team={{ team.id }}','_self')">
+          <i class="fa fa-group" style="min-width: 1.5em;"></i>{{ team.name }}
+        </div>
+    {% endfor %}
   </div>
+  <!-- 右侧具体内容栏目 -->
+  <div id="rightContent">
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <!-- 资源管理模块 -->
+      <div role="tabpanel" class="tab-pane active" id="sour">
+        <div class="data-div text-center">
+          <div class="row tableHeader">
+            <center>
+            <div class="col-md-5 col-sm-5 col-xs-5">标题</div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">作者</div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">来源</div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">年份</div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">操作</div>
+          </center>
+          </div>
+          <div class="tablebody">
+
+                {% for note in note_list %}
+                  <div class="row">
+                    <a href="{% url 'detail' %}?id={{ note.id }}">
+                      <div class="col-md-5 col-sm-5 col-xs-5 hidd_text"><p>{{ note.title }}</p></div>
+                    </a>
+
+                      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 hidd_text"><p>{{ note.authors }}</p></div>
+
+                      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{ note.source.name }}</div>
+                      <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{ note.sore_year }}</div>
+
+                      <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1" style="padding: 0px;line-height: 25px;padding-top: 10px;">
+                        <li style="list-style:none">
+                          <a href="{% url 'detail' %}?id={{ note.id }}">
+                            <button class="btn btn-success btn-xs">查看</button>
+                          </a>
+                        </li>
+                        <li style="list-style:none">
+                          <a href="#" onclick="cf({{ note.id }},{{ team_id }})">
+                            <button class="btn btn-danger btn-xs">删除</button>
+                          </a>
+                        </li>
+                      </div>
+                  </div>
+                {% endfor %}
 
 
+
+            </div>
+          </div>
+        </div>
+        <!--页码块-->
+        <footer class="footer1">
+          <ul class="pagination">
+            {% if note_list.has_previous %}
+            <li>
+              <a href="?typ={{ query_category }}&page={{ note_list.previous_page_number }}" aria-label="Previous">
+                <span aria-hidden="true">«</span>
+              </a>
+            </li>
+            {% else %}
+            <li>
+              <a href="#" class="disabled" aria-label="Previous">
+                <span aria-hidden="true">«</span>
+              </a>
+            </li>
+            {% endif %}
+
+            {% for number in page_range %}
+              {% if number == note_list.number %}
+                <li><a style="background-color: #f1f1f1">{{ number }}</a></li>
+                  <!-- <a href="/index?p={{ number }}" style="font-size: 33px">{{ number }}</a> -->
+              {% else %}
+                <li><a href="?typ={{ query_category }}&page={{ number }}">{{ number }}</a></li>
+                  <!-- <a href="/index?p={{ number }}" >{{ number }}</a> -->
+              {% endif %}
+
+            {% endfor %}
+
+            {% if note_list.has_next %}
+            <li>
+              <a href="?typ={{ query_category }}&page={{ note_list.next_page_number }}" aria-label="Previous">
+                <span aria-hidden="true">»</span>
+              </a>
+            </li>
+            {% else %}
+            <li>
+              <a href="#" class="disabled" aria-label="Previous">
+                <span aria-hidden="true">»</span>
+              </a>
+            </li>
+            {% endif %}
+          </ul>
+        </footer>
+
+      </div>
+    </div>
+  </div>
 </div>
-
-
+<script type="text/javascript">
+  $('#team_{{ team_id }}').addClass("meun-item-active");
+</script>
 {% endblock %}

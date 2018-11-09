@@ -241,6 +241,7 @@ body{
 }
 .navbar-inverse .navbar-nav > li > a{
 	color:#FFF;
+	background: #239fdb;
 }
 .navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus,.navbar-inverse .navbar-nav>.active>a{
 	background:#1c83b5;

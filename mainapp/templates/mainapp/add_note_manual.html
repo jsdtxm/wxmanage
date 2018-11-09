@@ -20,12 +20,10 @@
         <div class="wizard-container">
 
           <div class="card wizard-card" data-color="blue" id="wizardProfile">
-            <form action="" method="">
-              <!--        You can switch " data-color="orange" "  with one of the next bright colors: "blue", "green", "orange", "red", "azure"          -->
-
+            <form id="uploadnote" action="{% url 'add_note_manual' %}" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
               <div class="wizard-header text-center">
                 <h3 class="wizard-title">手动添加文献</h3>
-                <!-- <p class="category">This information will let us know more about you.</p> -->
               </div>
 
               <div class="wizard-navigation">
@@ -54,7 +52,7 @@
                       <div class="icon-circle">
                         <i class="fa fa-send fa-mid"></i>
                       </div>
-                      Address
+                      摘要及分组
                     </a>
                   </li>
                 </ul>
@@ -74,7 +72,8 @@
                           <div class="picture">
                             <i class="fa fa-file-pdf-o fa-big"></i>
                             <!-- <img src="{% static 'images/clints-img-1.png' %}" class="picture-src" id="wizardPicturePreview" title="" /> -->
-                            <input name="file" type="file" class="form-control">
+                            {{ form.upfile }} 
+                            {% comment %} <input name="file" type="file" class="form-control"> {% endcomment %}
                           </div>
                           <!-- <h6>Choose Picture</h6> -->
                         </div>
@@ -84,7 +83,8 @@
                     <div class="col-sm-6 col-long">
                       <div class="form-group">
                         <label>文献标题</label>
-                        <input name="title" type="text" class="form-control" placeholder="在此处键入标题...">
+                        {{ form.title }} 
+                        {% comment %} <input name="title" type="text" class="form-control" placeholder="在此处键入标题..."> {% endcomment %}
                       </div>
                     </div>
                   </div>
@@ -100,21 +100,32 @@
                       <div class="col-sm-6 col-long">
                         <div class="form-group">
                           <label>文献作者 <small> (使用英文逗号来分隔)</small></label>
-                          <input name="authors" type="text" class="form-control" placeholder="在此处键入作者...">
+                          {{ form.authors }} 
+                          {% comment %} <input name="authors" type="text" class="form-control" placeholder="在此处键入作者..."> {% endcomment %}
                         </div>
                       </div>
 
                       <div class="col-sm-6 col-long">
                         <div class="form-group">
                           <label>关键词 <small> (使用英文逗号来分隔)</small></label>
-                          <input name="keywords" type="text" class="form-control" placeholder="在此处键入关键词...">
+                          {{ form.keywords }} 
+                          {% comment %} <input name="keywords" type="text" class="form-control" placeholder="在此处键入关键词..."> {% endcomment %}
                         </div>
                       </div>
 
                       <div class="col-sm-6 col-long">
                         <div class="form-group">
                           <label>文献来源 </label>
-                          <input name="source" type="text" class="form-control" placeholder="在此处键入文献来源...">
+                          {{ form.source }} 
+                          {% comment %} <input name="source" type="text" class="form-control" placeholder="在此处键入文献来源..."> {% endcomment %}
+                        </div>
+                      </div>
+
+                      <div class="col-sm-6 col-long">
+                        <div class="form-group">
+                          <label>机构 </label>
+                          {{ form.institution }} 
+                          {% comment %} <input name="source" type="text" class="form-control" placeholder="在此处键入文献来源..."> {% endcomment %}
                         </div>
                       </div>
 
@@ -122,13 +133,15 @@
                       <div class="col-sm-6">
                         <div class="form-group">
                           <label>发表年份</label>
-                          <input type="text" class="form-control" placeholder="2018...">
+                          {{ form.sore_year }} 
+                          {% comment %} <input name="year" type="text" class="form-control" placeholder="2018..."> {% endcomment %}
                         </div>
                       </div>
                       <div class="col-sm-6">
                         <div class="form-group">
                           <label>来源类别</label><br>
-                          <select name="country" class="form-control">
+                          {{ form.source_select}}
+                          {% comment %} <select name="country" class="form-control">
                             <option value="journal"> 期刊 </option>
                             <option value="rich"> 硕博 </option>
                             <option value="meeting"> 会议 </option>
@@ -138,7 +151,7 @@
                             <option value="stand"> 标准 </option>
                             <option value="achievements"> 成果 </option>
                             <option value="other"> 其他 </option>
-                          </select>
+                          </select> {% endcomment %}
                         </div>
                       </div>
                     </div>
@@ -153,33 +166,26 @@
                     <div class="col-sm-6 col-long">
                       <div class="form-group">
                         <label>文献摘要</label>
-                        <textarea name="reworkmes" cols="40" rows="6" class="form-control"placeholder="在此处键入摘要..."/></textarea>
+                        {{ form.abstract}}
+                        {% comment %} <textarea name="reworkmes" cols="40" rows="6" class="form-control"placeholder="在此处键入摘要..."/></textarea> {% endcomment %}
                       </div>
                     </div>
 
                     <div class="col-sm-6">
-                      <div class="form-group">
-                        <label>发表年份</label>
-                        <input type="text" class="form-control" placeholder="2018...">
+                        <div class="form-group">
+                          <label>数字对象唯一标识符 </label>
+                          {{ form.doi }} 
+                          {% comment %} <input name="source" type="text" class="form-control" placeholder="在此处键入文献来源..."> {% endcomment %}
+                        </div>
                       </div>
-                    </div>
+
                     <div class="col-sm-6">
                       <div class="form-group">
-                        <label>来源类别</label><br>
-                        <select name="country" class="form-control">
-                          <option value="journal"> 期刊 </option>
-                          <option value="rich"> 硕博 </option>
-                          <option value="meeting"> 会议 </option>
-                          <option value="newspaper"> 报纸 </option>
-                          <option value="yearbook"> 年鉴 </option>
-                          <option value="patent"> 专利 </option>
-                          <option value="stand"> 标准 </option>
-                          <option value="achievements"> 成果 </option>
-                          <option value="other"> 其他 </option>
-                        </select>
+                        <label>目标群组</label><br>
+                        {{ form.team_choice}}
                       </div>
                     </div>
-                    
+
                   </div>
                   </div>
                 </div>
@@ -188,9 +194,9 @@
               <div class="wizard-footer">
                 <div class="pull-right">
                   <a name='next' value='Next' href="#" class="read-more btn-next">继续 <i class="fa fa-angle-right"></i></a>
-                  <a name='finish' value='Finish' href="#" class="read-more btn-finish">提交 <i class="fa fa-angle-right"></i></a>
+                  <a name='finish' value='Finish' href="javascript:$('#uploadnote').submit();" class="read-more btn-finish">提交 <i class="fa fa-angle-right"></i></a>
                   <!-- <input type='button' class='btn btn-next btn-fill btn-warning btn-wd' name='next' value='Next' /> -->
-                  <!-- <input type='button' class='btn btn-finish btn-fill btn-warning btn-wd' name='finish' value='Finish' /> -->
+                  {% comment %} <input type='submit' class='read-more btn-finish' name='next' value='提交' /> {% endcomment %}
 
                 </div>
 
@@ -201,6 +207,13 @@
                 <div class="clearfix"></div>
               </div>
             </form>
+            <!-- 我的表单 -->
+            {% comment %} <form action="{% url 'add_note_manual' %}" method="post">
+              {% csrf_token %}
+              {{ form.as_ul }}
+              <input type="submit" value="Submit" />
+            </form> {% endcomment %}
+
           </div>
         </div>
         <!-- wizard container -->

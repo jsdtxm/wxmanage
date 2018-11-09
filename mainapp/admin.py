@@ -13,7 +13,9 @@ class UserAdmin(BaseUserAdmin):
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
 admin.site.register(Source)
+admin.site.register(QNote)
 admin.site.register(Note)
-admin.site.register(Note_middle)
+admin.site.register(User_priv)
 admin.site.register(Team)
 admin.site.register(Sort)
+

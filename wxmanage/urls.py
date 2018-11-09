@@ -22,10 +22,12 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'', include('mainapp.urls')),
+
 ]
 
 if settings.DEBUG:
     urlpatterns += [
         url(r'^static/(?P<path>.*)$', views.static.serve, {'document_root': settings.STATIC_ROOT}, name="static"),
         url(r'^media/(?P<path>.*)$', views.static.serve, {'document_root': settings.MEDIA_ROOT}, name="media")
+        
     ]
