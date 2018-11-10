@@ -34,6 +34,13 @@ def about(request):
     }
     return render(request, 'mainapp/about.html', content)
 
+def pdf_viewer(request):
+    user = request.user if request.user.is_authenticated else None
+    content = {
+        'user': user,
+    }
+    return render(request, 'mainapp/pdf_viewer.html', content)
+
 def signup(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect(reverse('homepage'))

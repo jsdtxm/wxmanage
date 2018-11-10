@@ -18,4 +18,5 @@ urlpatterns = [
     url(r'^user/$',views.user_center_user,name='user'),
     url(r'^teams/$',views.user_center_team,name='teams'),
     url(r'^delnote/$',views.delnote,name='delnote'),
+    url(r'^pdf_viewer/$',views.pdf_viewer,name='pdf_viewer'),
 ]

@@ -25,7 +25,10 @@ SECRET_KEY = 'h4@k8lopjzc4b+%wk#@v(8afgxcgkd7yyofnbf-sq+z^sn5dou'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'jsdtxm.vicp.cc',
+    '127.0.0.1',
+]
 
 
 # Application definition
