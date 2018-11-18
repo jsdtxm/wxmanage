@@ -72,6 +72,7 @@ class Note(models.Model):
     upload_date = models.DateTimeField('上传时间', default=now)
     quotes = models.ManyToManyField(QNote, verbose_name='参考文献',related_name='quotes',null=True,blank=True)
     show = models.BooleanField('是否显示',default=True)
+    ontop = models.BooleanField('是否置顶',default=True)
     #文件
     upfile = models.FileField(upload_to='upload/%Y/%m/%d/',null=True,blank=True)
 

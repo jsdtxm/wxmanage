@@ -1,3 +1,4 @@
 {
-    "less.validate": false
+    "less.validate": false,
+    "python.linting.pylintEnabled": false
 }

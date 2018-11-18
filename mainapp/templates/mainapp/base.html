@@ -8,7 +8,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>{% block title %}{% endblock %}</title>
 
-  {% comment %} <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800,600,300' rel='stylesheet' type='text/css'> {% endcomment %}
+  {% comment %}
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800,600,300' rel='stylesheet' type='text/css'>
+  {% endcomment %}
   <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css" media="all" />
   <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" media="all" />
   <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet" type="text/css" media="all" />
@@ -18,16 +20,17 @@
   <script src="{% static 'js/bootstrap.js' %}" type="text/javascript"></script>
 
   <style type="text/css">
-    /* 动态为footer添加类fixed-bottom */
+    {% comment %} 动态为footer添加类fixed-bottom {% endcomment %}
     .fixed-bottom {
       position: fixed;
       bottom: 0;
       width: 100%;
+      line-height: 1em;
     }
   </style>
 
   <script type="text/javascript">
-    $(function() {
+    $(function () {
       function footerPosition() {
         $("#footer").removeClass("fixed-bottom");
         var contentHeight = document.body.scrollHeight, //网页正文全文高度
@@ -58,8 +61,8 @@
           <ul>
             {% if user %}
             <li><a href="{% url 'user_center' %}"><span>
-              <i class="fa fa-user"></i> 欢迎，&nbsp;<span id="base_name">{{ user.myuser.nickname }}</span>
-            </span></a></li>
+                  <i class="fa fa-user"></i> 欢迎，&nbsp;<span id="base_name">{{ user.myuser.nickname }}</span>
+                </span></a></li>
             {% if user.is_superuser %}
             <li><a href="/admin"><i class="fa fa-cogs"></i> 管理后台</a></li>
             {% endif %}
@@ -79,12 +82,13 @@
         <div class="container">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                   <span class="sr-only">Toggle navigation</span>
-                   <span class="icon-bar"></span>
-                   <span class="icon-bar"></span>
-                   <span class="icon-bar"></span>
-                 </button>
-            <div class="logo"> <a class="navbar-brand" href="{% url 'homepage' %}"><img src="{% static 'images/logo.png' %}" alt="" /></a></div>
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <div class="logo"> <a class="navbar-brand" href="{% url 'homepage' %}"><img src="{% static 'images/logo.png' %}"
+                  alt="" /></a></div>
             <div class="clear"></div>
           </div>
           <div class="collapse navbar-collapse">
@@ -112,19 +116,13 @@
   <!-- footer -->
   <footer id='footer' class="footer-bottom" role="footerinfo">
     <div class="wrap">
+      <div class="copy-left">
+        <img src="{% static 'images/logo2.png' %}" width="50px" alt="" />
+      </div>
       <div class="copy-right">
-        <p>XM文献管理系统 1.0.2
-          <span class="hide-xs"> · </span> 作者 <a href="https://github.com/jsdtxm">Xia Min</a>
-        </p>
+        <p>XM文献管理系统 1.0.2</p>
         <p>
-          本系统代码遵循 <a href="http://opensource.org/licenses/mit-license.html">MIT协议</a>
-        </p>
-        <p>
-          基于 <a href="https://www.djangoproject.com/"> Django</a>
-          <span class="hide-xs"> · </span>
-          <a href="https://getbootstrap.com/"> Bootstrap</a>
-          <span class="hide-xs"> · </span>
-          <a href="http://fontawesome.dashgame.com/"> Font Awesome</a> 框架进行开发
+          Copyright 2018 <a href="https://github.com/jsdtxm"> Xia Min </a>
         </p>
       </div>
       <div class="clear"></div>

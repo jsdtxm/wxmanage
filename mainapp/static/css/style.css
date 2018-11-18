@@ -22,6 +22,13 @@ nav.vertical ul li{	display:block;}/* vertical menu */
 nav.horizontal ul li{	display: inline-block;}/* horizontal menu */
 img{max-width:100%;}
 /*end reset*/
+
+.copy-left{
+	float: left;
+	text-align: right;
+	margin-top: 6px;
+}
+
 body{
 	font-family: 'Open Sans', sans-serif;
 	background:#fff;
@@ -792,8 +799,10 @@ body{
 	background:#37515d;
 	padding:1% 0;
 }
+
 .copy-right{
-	float:left;
+	float:right;
+	text-align: right;
 }
 .copy-right p{
 	font-size:10px;
