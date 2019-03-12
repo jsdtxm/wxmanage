@@ -28,6 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'jsdtxm.vicp.cc',
     '127.0.0.1',
+    '192.168.28.180',
 ]
 
 
